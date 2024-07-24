@@ -113,12 +113,16 @@ ${Array.from(document.querySelectorAll("table tr")).map(row => Array.from(row.ce
 
         var msg = "";
         var not_empty = true;
+        var validBlk = true;
+        var validMM = true;
 
         if (!blk.value) {
             msg += "Please input block size.<br>";
+            validBlk = false;
         }
         if (!mm.value) {
             msg += "Please input memory size.<br>";
+            validMM = false;
         }
         if (!memTime.value) {
             msg += "Please input memory access time.<br>";
@@ -139,14 +143,33 @@ ${Array.from(document.querySelectorAll("table tr")).map(row => Array.from(row.ce
             msg += "Please input program flow.<br>";
         } else {
             const checkInputs = seq.value.split(',');
+            const isMMBlock = document.getElementById("ismmblock").checked;
+            const isSeqBlock = document.getElementById("isseqblock").checked;
+
+            var compareSize = 0;
             var allNums = true;
+            var withinSize = true;
+            if (isMMBlock && isSeqBlock && validMM || !isMMBlock && !isSeqBlock && validMM) { //both block/word so compare mm size
+                compareSize = mm.value;
+            } else if (isMMBlock && !isSeqBlock && validMM && validBlk) { //program is word so convert mm to word
+                compareSize = mm.value * blk.value;
+            } else if (!isMMBlock && isSeqBlock && validMM && validBlk) { //mm is word so convert mm to block
+                compareSize = Math.ceil(mm.value / blk.value);
+            }
+            
             for (const val of checkInputs) {
                 if (isNaN(val.trim()) || val.trim() === '' || parseFloat(val.trim()) < 0) {
                     allNums = false;
                 }
+                if (parseFloat(val.trim()) >= compareSize) {
+                    withinSize = false;
+                }
             }
             if (!allNums) {
                 msg += "Please input positive numbers only in program flow.<br>Example: 1,2,3,4,5<br>";
+            }
+            if (!withinSize) {
+                msg += "Kindly change one of the numbers that is outside the given size.<br>";
             }
         }
         if (!selectSeq) {
