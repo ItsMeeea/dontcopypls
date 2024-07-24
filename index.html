@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Caching Simulator</title>
+    <link rel="stylesheet" href="CSS/style.css">
+
+</head>
+<body style="background: url('Image/3.jpg') no-repeat center center fixed; background-size: cover;">
+    <h1>Direct Caching Simulator</h1>
+    <div class="flex-parent">
+        <div class="big-box" id="big-box-left">
+            <h2>Input</h2>
+            <form id="cache-form">
+                <div class="inputs">
+                    <div class="text">
+                        <label for="blksize">Block size</label>
+                        <input type="number" class="textbox" id="blksize" name="blksize" 
+                               placeholder="Block size" min="1" oninput="positiveonly(this)" required>
+                    </div>
+                    <div class="text">
+                        <label for="mmsize">Main memory size</label>
+                        <input type="number" class="textbox" id="mmsize" name="mmsize" 
+                               placeholder="Main memory size" min="1" oninput="positiveonly(this)" required>
+                        <div class="radio-group">
+                            <input type="radio" class="radio-reset" id="ismmblock" name="mmsize-input" required>
+                            <label for="ismmblock" class="radio">Blocks</label>
+                            <input type="radio" class="radio-reset" id="ismmword" name="mmsize-input" required>
+                            <label for="ismmword" class="radio">Words</label>
+                        </div>
+                    </div>
+                    <div class="text">
+                        <label for="memtime">Memory access time</label>
+                        <input type="number" class="textbox" id="memtime" name="memtime" 
+                               placeholder="Memory access time (ns)" min="1" oninput="positiveonly(this)" required>
+                    </div>
+                    <div class="text">
+                        <label for="cache-memsize">Cache memory size</label>
+                        <input type="number" class="textbox" id="cache-memsize" name="cache-memsize" 
+                               placeholder="Cache memory size" min="1" oninput="positiveonly(this)" required>
+                        <div class="radio-group">
+                            <input type="radio" class="radio-reset" id="iscacheblock" name="cachesize" required>
+                            <label for="iscacheblock" class="radio">Blocks</label>
+                            <input type="radio" class="radio-reset" id="iscacheword" name="cachesize" required>
+                            <label for="iscacheword" class="radio">Words</label>
+                        </div>
+                    </div>
+                    <div class="text">
+                        <label for="cachetime">Cache access time</label>
+                        <input type="number" class="textbox" id="cachetime" name="cachetime" 
+                               placeholder="Cache access time (ns)" min="1" oninput="positiveonly(this)" required>
+                    </div>
+                    <div class="text">
+                        <label for="seq">Program flow</label>
+                        <input type="text" class="textbox" id="seq" name="seq" 
+                               placeholder="Program flow" required>
+                        <div id="note-msg">***Separate numbers with commas (ex: 1,2,3,4,5)</div>
+                        <div class="radio-group">
+                            <input type="radio" class="radio-reset" id="isseqblock" name="sequence" required>
+                            <label for="isseqblock" class="radio">Blocks</label>
+                            <input type="radio" class="radio-reset" id="isseqword" name="sequence" required>
+                            <label for="isseqword" class="radio">Words</label>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Enter" class="relative-button">
+                <div id="incomplete-msg"></div>
+            </form>
+        </div>
+        <div class="big-box" id="big-box-right">
+            <h2>Output</h2>
+            <div class="flex-parent" id="output-flex">
+                <div>
+                    <div class="text">
+                        <h3>Cache hits</h3>
+                        <p></p>
+                    </div>
+                    <div class="text">
+                        <h3>Cache misses</h3>
+                        <p></p>
+                    </div>
+                    <div class="text">
+                        <h3>Miss penalty</h3>
+                        <p></p>
+                    </div>
+                    <div class="text">
+                        <h3>Avg. access time</h3>
+                        <p></p>
+                    </div>
+                    <div class="text">
+                        <h3>Total access time</h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Snapshot</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Block</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- empty for dynamic table generation -->
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+            <div class="flex-parent" id="export-div">
+                <input type="button" value="Export" id="export-btn" style="margin-left: 240px;">
+                <input type="button" value="Reset" id="reset-btn" style="margin-left: 10px;">
+
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
