@@ -109,7 +109,7 @@ Submitted to:
 
 ## Authors
 
-- Chua, Judy
+- Chua, Judy P.
 - Ha, Eun Ji
 - Telosa, Arwyn Gabrielle
 - Uy, Jasmine Louise
