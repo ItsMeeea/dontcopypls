@@ -56,10 +56,30 @@ document.addEventListener("DOMContentLoaded", function() {
             
             document.querySelector("tbody").innerHTML = "";
 
-            for (let i = 0; i < cache.length; i++) {
-                const newRow = snapshotTable.insertRow();
-                newRow.insertCell(0).textContent = i;
-                newRow.insertCell(1).textContent = cache[i] !== null ? cache[i] : "Empty";
+            if (isMMBlock && isSeqBlock && isCacheBlock) {
+                for (let i = 0; i < cache.length; i++) {
+                    const newRow = snapshotTable.insertRow();
+                    newRow.insertCell(0).textContent = i;
+                    newRow.insertCell(1).textContent = cache[i] !== null ? cache[i] : "Empty";
+                }
+            } else {
+                var getHeader = document.getElementById("table-header");
+                var newHeader = document.createElement('th');
+                newHeader.textContent = "MM Block";
+                getHeader.insertBefore(newHeader, getHeader.children[1]); //insert this header before data
+                for (let i = 0; i < cache.length; i++) {
+                    for (let j = 0; j < blockSize; j++) {
+                        const newRow = snapshotTable.insertRow(); //new row
+                        const blockCol = newRow.insertCell(0); //block
+                        blockCol.textContent = i;
+
+                        const mmBlockCol = newRow.insertCell(1); //MM block
+                        mmBlockCol.textContent = cache[i] !== null ? cache[i] : "Empty";
+
+                        const dataCol = newRow.insertCell(2); //data
+                        dataCol.textContent = cache[i] !== null ? cache[i]*blockSize+j : "Empty"; //data
+                    }
+                }
             }
         }
     });
