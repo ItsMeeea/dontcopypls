@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector("tbody").innerHTML = "";
 
             if (isMMBlock && isSeqBlock && isCacheBlock) {
+                var getHeader = document.getElementById("table-header");
+                if (getHeader.children[1].textContent == "MM Block") {
+                    getHeader.children[1].remove();
+                }
                 for (let i = 0; i < cache.length; i++) {
                     const newRow = snapshotTable.insertRow();
                     newRow.insertCell(0).textContent = i;
@@ -66,6 +70,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 var getHeader = document.getElementById("table-header");
                 var newHeader = document.createElement('th');
                 newHeader.textContent = "MM Block";
+                if (getHeader.children[1].textContent == "MM Block") {
+                    getHeader.children[1].remove();
+                }
                 getHeader.insertBefore(newHeader, getHeader.children[1]); //insert this header before data
                 for (let i = 0; i < cache.length; i++) {
                     for (let j = 0; j < blockSize; j++) {
